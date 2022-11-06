@@ -1,25 +1,35 @@
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
-import ExploreContainer from '../components/ExploreContainer';
-import './Tab1.css';
+import { IonPage } from '@ionic/react'
+import Phaser from 'phaser'
+import { Game } from '../scenes/Game'
+import { Preload } from '../scenes/Preload'
+import './Tab1.css'
 
 const Tab1: React.FC = () => {
-  return (
-    <IonPage>
-      <IonHeader>
-        <IonToolbar>
-          <IonTitle>Tab 1</IonTitle>
-        </IonToolbar>
-      </IonHeader>
-      <IonContent fullscreen>
-        <IonHeader collapse="condense">
-          <IonToolbar>
-            <IonTitle size="large">Tab 1</IonTitle>
-          </IonToolbar>
-        </IonHeader>
-        <ExploreContainer name="Tab 1 page" />
-      </IonContent>
-    </IonPage>
-  );
-};
+  const config: any = {
+    type: Phaser.AUTO,
+    width: 800,
+    height: 600,
+    parent: 'phaser',
+    physics: {
+      default: 'arcade',
+      arcade: {
+        gravity: { x: 0, y: 0 },
+        // debug: true,
+      },
+    },
+    dom: {
+      createContainer: true,
+    },
+    pixelArt: true,
+    scale: {
+      mode: Phaser.Scale.FIT,
+      autoCenter: Phaser.Scale.CENTER_BOTH,
+    },
+    scene: [Preload, Game],
+  }
+  new Phaser.Game(config)
 
-export default Tab1;
+  return <IonPage></IonPage>
+}
+
+export default Tab1
